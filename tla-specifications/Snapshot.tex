@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{libertine}
+% \usepackage[libertine]{newtxmath}
+\usepackage{tlatex}
+\usepackage{lineno}
+\pagenumbering{gobble}
+\usepackage{color}
+\definecolor{boxshade}{gray}{0.85}
+\setboolean{shading}{true}
+
+\begin{document}
+
+\begin{linenumbers}
+
+\begin{pcal}
+--algorithm Snapshot {
+    variables
+        \* the shared, anonymous registers, each containing a view and a level:
+        register = [r \in R |-> [view |-> {}, level |-> 0]];
+    process (proc \in P)
+        variables \* local variables:
+            input \in V; \* the input of the process
+            view = {input}; \* the set of all inputs ever read
+            level = 0;
+	    read = [r \in R |-> <<>>]; \* stuff read in the current scan loop
+            written = {}; { \* registers written since this was last empty
+	    output = <<>>;
+write:  while (level < N-1) {
+            with (r \in R \ written) { \* pick a register that we have not yet written to
+                register[r] := [view |-> view, level |-> level];
+                written := IF written \cup {r} = P THEN {} ELSE written \cup {r} };
+	    read := [r \in R |-> <<>>]; \* reset stuff read
+scan:       with (notRead = {r \in R : read[r] = <<>>})
+	    while (notRead # {}) with (r \in notRead)
+                read[r] := register[r];
+            if (\A r \in R : read[r].view = view)
+                level := Min({read[r].level : r \in R}) + 1
+            else
+                level := 0;
+            view := view \cup (UNION {read[r].view : r \in R}) };
+output: output := view } }
+\end{pcal}
+
+\end{linenumbers}
+
+\end{document}
+

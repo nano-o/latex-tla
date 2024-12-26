@@ -32,11 +32,12 @@ tlatex.sty: $(JAR)
 %_preprocessed.tex: $(ALGO_DIR)/%.tex $(JAR)
 	java -cp $(JAR) tla2tex.TeX -out $@ $<
 
-main.pdf: main.tex Snapshot.pdf
+main.pdf: main.tex Snapshot.pdf WeakAgreement-1.pdf WeakAgreement-2.pdf
 	$(LATEXMK) $(LATEXMK_OPTS) -pdf $<
 	cp main.pdf main_.pdf
 	latexmk -C main.tex
 	mv main_.pdf main.pdf
 
 clean:
-	rm main.pdf Snapshot.pdf
+	rm main.pdf Snapshot.pdf WeakAgreement-1.pdf WeakAgreement-2.pdf
+

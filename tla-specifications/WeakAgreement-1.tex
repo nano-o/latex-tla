@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{libertine}
+% \usepackage[libertine]{newtxmath}
+\usepackage{tlatex}
+\usepackage{lineno}
+\pagenumbering{gobble}
+\usepackage{color}
+\definecolor{boxshade}{gray}{0.85}
+\setboolean{shading}{true}
+
+\begin{document}
+
+\begin{linenumbers}
+
+\begin{pcal}
+defaultRegValue == \* default value of registers
+    [id |-> CHOOSE p \in P : TRUE, seq |-> -1, active |-> {}]
+
+--algorithm WeakAgreement {
+    variables \* shared variables
+        registers = [r \in R |-> defaultRegValue]
+    process (proc \in P)
+        variables \* local variables
+            active = {self}, \* processes seen so far
+            output = {}, \* final output
+            read = {}, \* registers read so far during a collect
+            \* values read during a collect:
+            collect = [r \in R |-> defaultRegValue],
+            \* after second collect, whether a snapshot has succeeded:
+            snapshot = FALSE;
+            seq = 0; \* sequence number
+    {
+l0: while (output = {}) { \* while we don't have an output:
+        with (r \in R) { \* write to a register:
+            registers[r] :=
+                [id |-> self, seq |-> seq, active |-> active];
+            seq := seq + 1 };
+\end{pcal}
+
+\end{linenumbers}
+
+\end{document}
+
+

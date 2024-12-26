@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{libertine}
+% \usepackage[libertine]{newtxmath}
+\usepackage{tlatex}
+\usepackage{lineno}
+\pagenumbering{gobble}
+\usepackage{color}
+\definecolor{boxshade}{gray}{0.85}
+\setboolean{shading}{true}
+
+\begin{document}
+
+\begin{linenumbers}
+    \setcounter{linenumber}{20}
+
+\begin{pcal}
+l1: \* do a first collect:
+        while (read # R) with (r \in R \ read) {
+            collect[r] := registers[r];
+            active := active \cup collect[r].active;
+            read := read \cup {r} };
+        read := {}; \* reset read
+        snapshot := TRUE; \* true until we read a different value
+l2: \* do a second collect:
+        while (read # R) with (r \in R \ read) {
+            if (registers[r] # collect[r])
+                snapshot := FALSE;
+            collect[r] := registers[r];
+            active := active \cup collect[r].active;
+            read := read \cup {r} };
+        read := {}; \* reset read
+l3: \* if more than K processes are active, output:
+        if (Cardinality(active) > K)
+            output := active;
+l4: \* if the snapshot did not succeed, retry:
+        if (\neg snapshot) goto l1;
+l5: \* if the snapshot succeeded and the process's active set is everywhere, output:
+        if (\A r \in R : collect[r].active = active)
+            output := active; }}}
+\end{pcal}
+
+\end{linenumbers}
+
+\end{document}
+
+

@@ -6,6 +6,8 @@
 \usepackage{multirow}
 \usepackage{makecell}
 \usepackage{thmtools}
+\usepackage{subcaption}
+\usepackage[export]{adjustbox}% http://ctan.org/pkg/adjustbox
 
 % \declaretheorem[name=Theorem,numberwithin=section]{theorem}
 
@@ -14,12 +16,6 @@
 \orcid{0000-0003-2341-7928}
 \affiliation{%
   \institution{Stellar Development Foundation}
-  \country{USA}
-}
-\author{Eli Gafni}
-\email{eli@ucla.edu}
-\affiliation{%
-  \institution{University of California, Los Angeles}
   \country{USA}
 }
 \affiliation{%
@@ -33,15 +29,32 @@
 
 \maketitle
 
-\section{Introduction}
+\section{A simple algorithm}
 
 Here is an algorithm:
 
 \begin{figure}[h]
 \centering
 \includegraphics[]{./Snapshot.pdf}
-\caption{An algorithm}
+\caption{A simple algorithm}
 \end{figure}
+
+\section{A two-columns algorithm}
+
+\begin{figure}[h]
+    \centering
+    % First subfigure
+    \begin{subfigure}[t]{0.49\textwidth} % Adjust width as needed
+        \includegraphics[scale=.65,valign=t]{WeakAgreement-1.pdf}
+    \end{subfigure}
+    \hfill % Adds horizontal space between the subfigures
+    % Second subfigure
+    \begin{subfigure}[t]{0.49\textwidth} % Adjust width as needed
+        \includegraphics[scale=.65,valign=t]{WeakAgreement-2.pdf}
+    \end{subfigure}
+    \caption{A two-columns algorithm}
+\end{figure}
+
 
 \end{document}
 
